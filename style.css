@@ -1,0 +1,182 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #10131c;
+    color: white;
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(16, 19, 28, 0.75); /* Тёмная плёнка поверх фона */
+    z-index: -1;
+}
+
+/* ---------- Шапка ---------- */
+header {
+    background: rgba(27, 32, 48, 0.85);
+    backdrop-filter: blur(10px);
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+header h1 { color: #5795ff; font-size: 26px; letter-spacing: 1px; }
+
+nav a { 
+    color: #d0d6e2; 
+    text-decoration: none; 
+    margin-left: 25px; 
+    font-size: 16px; 
+    transition: color 0.2s; 
+}
+nav a:hover { color: #5795ff; }
+
+#cart { 
+    background: rgba(37, 43, 61, 0.8); 
+    padding: 8px 16px; 
+    border-radius: 20px; 
+    border: 1px solid #5795ff; 
+    color: #fff; 
+    font-weight: bold; 
+}
+#cart:hover { background: #5795ff; color: #10131c; }
+
+/* ---------- Основной контент ---------- */
+main {
+    flex: 1;
+    padding: 50px 20px 80px;
+    text-align: center;
+    max-width: 1100px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+main > h2 { font-size: 34px; margin-bottom: 12px; text-shadow: 0 2px 5px rgba(0,0,0,0.5); }
+main > p { color: #b7bfd0; font-size: 18px; margin-bottom: 40px; text-shadow: 0 1px 3px rgba(0,0,0,0.5); }
+
+/* ---------- Сетка товаров ---------- */
+#products {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 25px;
+    margin-top: 30px;
+}
+#products > h2 { grid-column: 1 / -1; font-size: 28px; margin-bottom: 10px; text-shadow: 0 2px 5px rgba(0,0,0,0.5); }
+
+/* ---------- Карточка товара ---------- */
+.product {
+    background: rgba(35, 40, 58, 0.85);
+    backdrop-filter: blur(5px);
+    padding: 35px 20px;
+    border-radius: 16px;
+    border: 1px solid #2f3a55;
+    text-align: center;
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.product:hover { 
+    transform: translateY(-6px); 
+    border-color: #5795ff; 
+    box-shadow: 0 10px 30px rgba(87, 149, 255, 0.25); 
+}
+.product h3 { font-size: 22px; margin-bottom: 10px; }
+.price { color: #5795ff; font-size: 26px; font-weight: bold; margin-bottom: 18px; }
+
+/* ---------- Кнопка «Купить» ---------- */
+.buy-button {
+    padding: 12px 24px;
+    background: #5795ff;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+}
+.buy-button:hover { background: #3d7ae0; }
+.buy-button:active { transform: scale(0.96); }
+
+/* ---------- Футер и соцсети ---------- */
+footer {
+    background: rgba(27, 32, 48, 0.85);
+    backdrop-filter: blur(10px);
+    padding: 30px 20px;
+    text-align: center;
+    border-top: 1px solid #2f3a55;
+    margin-top: auto;
+}
+footer p { color: #b7bfd0; font-size: 15px; margin-bottom: 15px; }
+
+.social-links { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
+
+.social-links a {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    background: rgba(27, 32, 48, 0.8);
+    color: #d0d6e2;
+    text-decoration: none;
+    border-radius: 14px;
+    font-weight: bold;
+    font-size: 16px;
+    border: 1px solid #2f3a55;
+    transition: color 0.2s, border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+    z-index: 1;
+}
+
+.social-links a::before {
+    content: '';
+    position: absolute;
+    top: var(--y, 50%);
+    left: var(--x, 50%);
+    width: 150px;
+    height: 150px;
+    background: radial-gradient(circle, rgba(87, 149, 255, 0.9) 0%, transparent 60%);
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 0.2s;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.social-links a:hover::before { opacity: 1; }
+.social-links a:hover {
+    color: #fff;
+    border-color: #5795ff;
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 8px 20px rgba(87, 149, 255, 0.3);
+}
+
+/* ---------- Адаптив под телефон ---------- */
+@media (max-width: 600px) {
+    header { padding: 15px 20px; flex-direction: column; gap: 12px; }
+    nav a { margin: 0 10px; font-size: 15px; }
+    main > h2 { font-size: 26px; }
+    #products { grid-template-columns: 1fr; }
+}
